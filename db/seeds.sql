@@ -1,7 +1,5 @@
 USE employees_db;
 
-USE employeeTracker_db;
-
 INSERT INTO department (name) 
 VALUES ('Engineering');
 
