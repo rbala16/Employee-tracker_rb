@@ -82,6 +82,24 @@ function employeeTracker() {
     });
 }
 
+//View All Department
+function viewDepartment() {
+  console.log("Viewing employees\n");
+
+  var query =
+    `SELECT * from department`
+
+  connection.query(query, function (err, res) {
+    if (err) throw err;
+
+    console.table(res);
+    console.log("Employees viewed!\n");
+
+    employeeTracker();
+  });
+
+}
+
 //View Employees/ READ all, SELECT * FROM
 function viewEmployee() {
   console.log("Viewing employees\n");
