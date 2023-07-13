@@ -45,6 +45,9 @@ WHEN I choose to update an employee role
 THEN I am prompted to select an employee to update and their new role and this information is updated in the database 
 ```
 
+## License 
+MIT License
+
 ## Installation
 1. Clone the repository
 2. Install the following: 
@@ -52,35 +55,37 @@ THEN I am prompted to select an employee to update and their new role and this i
 - Inquirer.js: [Version 8.2.4](https://www.npmjs.com/package/inquirer/v/8.2.4)
 - mysql2- (https://www.npmjs.com/package/mysql2)
 
+## Usage
+💻   
+  This applications is to view and manage the departments, roles, and employees in the company
+so that owner can organize and plan his company busines according to that.<br>
+Run the following command at the terminal:
+`mysql -u root -p` <br>
+`node server.js`  <br>
+Please watch the demo viedo for step by step instructions
 
-## License 
-MIT License
+## Contributing
+Rajni bala : (https://github.com/rbala16)
 
+## Questions
+✉️ Contact me with any questions: [Email:]bala12rajni@gmail.com , [Github](https://github.com/rbala16)<br />
 
-## Mock-Up
-
-The following video shows an example of the application being used from the command line:
-
-[![A video thumbnail shows the command-line employee management application with a play button overlaying the view.]
-
- A walkthrough video demonstrating the functionality of the application.
-
+## Mockup
+* A walkthrough video demonstrating the functionality of the application.<br>
+![alt demo](./demo/walkThrough.gif)
 <br>
+The full movie file showing functionality of the application can be found here :<br>
+ https://drive.google.com/file/d/1XzDHa0DOai7lAF7fPCqK0ff19oSCTw6B/view
 
-The full movie file showing functionality of the application can be found here : https://drive.google.com/file/d/1GSraM9atnIzf7EBk5gT8hFgqaEPtvsjT/view?pli=1
 
-
-
-## Review
+## Important Links
 
 You are required to submit BOTH of the following for review:
 
-* A walkthrough video demonstrating the functionality of the application.
-<br>
-https://drive.google.com/file/d/1GSraM9atnIzf7EBk5gT8hFgqaEPtvsjT/view?pli=1
+* A walkthrough video demonstrating the functionality of the application.<br>
+https://drive.google.com/file/d/1XzDHa0DOai7lAF7fPCqK0ff19oSCTw6B/view
 
-* The URL of the GitHub repository, with a unique name and a README describing the project.
-<br>
+* The URL of the GitHub repository, with a unique name and a README describing the project.<br>
 https://github.com/rbala16/Employee-tracker_rb
 
 
