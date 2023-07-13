@@ -43,6 +43,7 @@ function employeeTracker() {
         "Add Role",
         "Add Employee",
         "Update Employee Role",
+        "Remove Employee",
         "End"]
     })
     .then(function ({ task }) {
@@ -74,6 +75,10 @@ function employeeTracker() {
           case "Update Employee Role":
           updateEmployeeRole();
           break;
+
+          case "Remove Employee":
+            removeEmployee();
+            break;
 
           case "End":
           connection.end();
@@ -325,15 +330,12 @@ function updateEmployeeRole() {
       value: id, name: `${id} ${first_name} ${last_name}`      
     }));
 
-    console.table(res);
-    console.log("employeeArray To Update!\n")
-
     roleArray(employeeChoices);
   });
 }
 
 function roleArray(employeeChoices) {
-  console.log("Updating an role\n");
+
 
   var query =
     `SELECT r.id, r.title, r.salary 
@@ -347,8 +349,7 @@ function roleArray(employeeChoices) {
       value: id, name: `${id} ${title}`      
     }));
 
-    console.table(res);
-    console.log("roleArray to Update!\n")
+    console.log(" Updating  r ole!\n")
 
     promptEmployeeRole(employeeChoices, roleChoices);
   });
@@ -390,4 +391,47 @@ function promptEmployeeRole(employeeChoices, roleChoices) {
     });
 }
 
+//Remove Employees
+function removeEmployee() {
+  console.log("Deleting an employee");
 
+  var query =
+    `SELECT e.id, e.first_name, e.last_name
+      FROM employee e`
+
+  connection.query(query, function (err, res) {
+    if (err) throw err;
+
+    const deleteEmployeeChoices = res.map(({ id, first_name, last_name }) => ({
+      value: id, name: `${id} ${first_name} ${last_name}`
+    }));
+
+       promptDelete(deleteEmployeeChoices);
+  });
+}
+
+// User choose the employee list, then employee is deleted
+function promptDelete(deleteEmployeeChoices) {
+
+  inquirer
+    .prompt([
+      {
+        type: "list",
+        name: "employeeId",
+        message: "Which employee do you want to remove from the list?",
+        choices: deleteEmployeeChoices
+      }
+    ])
+    .then(function (answer) {
+
+      var query = `DELETE FROM employee WHERE ?`;
+       connection.query(query, { id: answer.employeeId }, function (err, res) {
+        if (err) throw err;
+
+        
+        console.log( "Selected Employee has been from the list!\n");
+
+        employeeTracker();
+      });
+    });
+}

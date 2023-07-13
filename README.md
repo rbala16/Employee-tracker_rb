@@ -54,6 +54,7 @@ MIT License
 - Node.JS [Version 16.18.1](https://nodejs.org/en/blog/release/v16.18.1/)
 - Inquirer.js: [Version 8.2.4](https://www.npmjs.com/package/inquirer/v/8.2.4)
 - mysql2- (https://www.npmjs.com/package/mysql2)
+- console.table ( npm i --save console.table)
 
 ## Usage
 💻   
@@ -71,6 +72,12 @@ Rajni bala : (https://github.com/rbala16)
 ✉️ Contact me with any questions: [Email:]bala12rajni@gmail.com , [Github](https://github.com/rbala16)<br />
 
 ## Mockup
+* There are some screenshoots:<br>
+![alt demo1](./demo/example1.jpg)<br>
+![alt demo2](./demo/example2.jpg)<br>
+![alt demo3](./demo/example3.jpg)<br>
+![alt demo4](./demo/example4.jpg)<br>
+
 * A walkthrough video demonstrating the functionality of the application.<br>
 ![alt demo](./demo/walkThrough.gif)
 <br>
