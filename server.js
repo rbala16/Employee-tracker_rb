@@ -158,8 +158,8 @@ function addDepartment() {
       ).then(function ({ name }) {
           connection.query(`INSERT INTO department (name) VALUES ('${name}')`, function (err, data) {
               if (err) throw err;
-              console.log(`Added`)
-              viewDepartment();
+              console.log(`${name} Added`)
+              
               employeeTracker();
           })
       })
@@ -168,22 +168,17 @@ function addDepartment() {
 //"Add Role" 
 function addRole() {
 
-  var query =
-  `SELECT * 
-  FROM role r
-  LEFT JOIN department d
-  ON r.department_id = d.id`
+  var query = `SELECT * from department;`
 
   connection.query(query, function (err, res) {
     if (err) throw err;
 
 
     const departmentChoices = res.map(({ id, name }) => ({
-      value: id, name: `${id} ${name}`
+      value:id,
+      name:name,
+    
     }));
-
-    console.table(res);
-    console.log("Department array!");
 
     promptAddRole(departmentChoices);
   });
@@ -214,16 +209,16 @@ function promptAddRole(departmentChoices) {
 
       var query = `INSERT INTO role SET ?`
 
-      connection.query(query, {
+      connection.query(
+        query, {
         title: answer.roleTitle,
         salary: answer.roleSalary,
         department_id: answer.departmentId
       },
         function (err, res) {
           if (err) throw err;
-          viewRoles();
-          // console.table(res);
-          console.log("Role Inserted!");
+   
+          console.log(`${answer.roleTitle} Added`);
         
           employeeTracker();
         });
@@ -251,7 +246,8 @@ function addEmployee() {
     if (err) throw err;
 
     const roleChoices = res.map(({ id, title }) => ({
-      value: id, name: `${id} ${title}`
+      value: id,
+     name: title
     }));
 
     console.table(res);
@@ -298,11 +294,7 @@ function addEmployee() {
         },
         function (err, res) {
           if (err) throw err;
-
-        
-         
-         viewEmployee();
-         console.log("Inserted successfully!\n");
+          console.log(`${answer.first_name} ${answer.last_name} added successfully!\n`);
           employeeTracker();
         });
     });
@@ -390,8 +382,8 @@ function promptEmployeeRole(employeeChoices, roleChoices) {
         function (err, res) {
           if (err) throw err;
 
-     viewEmployee();
-          console.log("Updated successfully!");
+ 
+          console.log("Employee role has been successfully!");
 
           employeeTracker();
         });
