@@ -51,13 +51,13 @@ function employeeTracker() {
           viewDepartment();
           break;
 
-          case "View All Employees":
-            viewEmployee();
-            break;
+        case "View All Roles":
+          viewRoles();
+          break;
 
-            case "View All Roles":
-              viewRoles();
-              break;
+          case "View All Employees":
+          viewEmployee();
+           break;
 
           case "Add Department":
           addDepartment();
@@ -146,6 +146,93 @@ function viewEmployee() {
 
 }
 
+//Add Department
+function addDepartment() {
+  inquirer
+      .prompt(
+          {
+              name: 'name',
+              message: "What is the department's name?",
+              type: 'input'
+          }
+      ).then(function ({ name }) {
+          connection.query(`INSERT INTO department (name) VALUES ('${name}')`, function (err, data) {
+              if (err) throw err;
+              console.log(`Added`)
+              viewDepartment();
+              employeeTracker();
+          })
+      })
+}
+
+//"Add Role" 
+function addRole() {
+
+  var query =
+  `SELECT * 
+  FROM role r
+  LEFT JOIN department d
+  ON r.department_id = d.id`
+
+  connection.query(query, function (err, res) {
+    if (err) throw err;
+
+
+    const departmentChoices = res.map(({ id, name }) => ({
+      value: id, name: `${id} ${name}`
+    }));
+
+    console.table(res);
+    console.log("Department array!");
+
+    promptAddRole(departmentChoices);
+  });
+}
+
+function promptAddRole(departmentChoices) {
+
+  inquirer
+    .prompt([
+      {
+        type: "input",
+        name: "roleTitle",
+        message: "Role title?"
+      },
+      {
+        type: "input",
+        name: "roleSalary",
+        message: "Role Salary"
+      },
+      {
+        type: "list",
+        name: "departmentId",
+        message: "Department?",
+        choices: departmentChoices
+      },
+    ])
+    .then(function (answer) {
+
+      var query = `INSERT INTO role SET ?`
+
+      connection.query(query, {
+        title: answer.roleTitle,
+        salary: answer.roleSalary,
+        department_id: answer.departmentId
+      },
+        function (err, res) {
+          if (err) throw err;
+          viewRoles();
+          // console.table(res);
+          console.log("Role Inserted!");
+        
+          employeeTracker();
+        });
+
+    });
+}
+
+
+
 // Add employee
 function addEmployee() {
   console.log("Adding an new employee!")
@@ -221,90 +308,7 @@ function addEmployee() {
     });
 }
 
-//"Add Role" 
-function addRole() {
 
-  var query =
-  `SELECT * 
-  FROM role r
-  LEFT JOIN department d
-  ON r.department_id = d.id`
-
-  connection.query(query, function (err, res) {
-    if (err) throw err;
-
-    // (callbackfn: (value: T, index: number, array: readonly T[]) => U, thisArg?: any)
-    const departmentChoices = res.map(({ id, name }) => ({
-      value: id, name: `${id} ${name}`
-    }));
-
-    console.table(res);
-    console.log("Department array!");
-
-    promptAddRole(departmentChoices);
-  });
-}
-
-function promptAddRole(departmentChoices) {
-
-  inquirer
-    .prompt([
-      {
-        type: "input",
-        name: "roleTitle",
-        message: "Role title?"
-      },
-      {
-        type: "input",
-        name: "roleSalary",
-        message: "Role Salary"
-      },
-      {
-        type: "list",
-        name: "departmentId",
-        message: "Department?",
-        choices: departmentChoices
-      },
-    ])
-    .then(function (answer) {
-
-      var query = `INSERT INTO role SET ?`
-
-      connection.query(query, {
-        title: answer.roleTitle,
-        salary: answer.roleSalary,
-        department_id: answer.departmentId
-      },
-        function (err, res) {
-          if (err) throw err;
-          viewRoles();
-          // console.table(res);
-          console.log("Role Inserted!");
-          
-          employeeTracker();
-        });
-
-    });
-}
-
-//Add Department
-function addDepartment() {
-  inquirer
-      .prompt(
-          {
-              name: 'name',
-              message: "What is the department's name?",
-              type: 'input'
-          }
-      ).then(function ({ name }) {
-          connection.query(`INSERT INTO department (name) VALUES ('${name}')`, function (err, data) {
-              if (err) throw err;
-              console.log(`Added`)
-              viewDepartment();
-              employeeTracker();
-          })
-      })
-}
 
 //"Update Employee Role" 
 
